@@ -1,0 +1,959 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOCKA - الملف الشخصي</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #050505;
+    font-family: Tahoma, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app {
+    width: 390px;
+    height: 844px;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 0 0 7px #111;
+    color: #234f7d;
+}
+
+.status {
+    height: 34px;
+    padding: 9px 16px 0;
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+    font-size: 11px;
+    color: #111;
+}
+
+.header {
+    text-align: center;
+    padding: 7px 25px 8px;
+}
+
+.header h1 {
+    margin: 8px 0 20px;
+    font-size: 22px;
+    color: #244f7d;
+}
+
+.profile {
+    text-align: center;
+}
+
+.avatar {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    margin: auto;
+    background: #eaf3fb;
+    border: 2px solid #9ec0df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3979b8;
+    font-size: 38px;
+}
+
+.name {
+    margin-top: 9px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #173f6b;
+}
+
+.student-number {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #8499ae;
+}
+
+.menu {
+    margin-top: 18px;
+}
+
+.menu-button {
+    width: 100%;
+    height: 67px;
+    border: 0;
+    border-bottom: 1px solid #edf2f7;
+    background: white;
+    padding: 0 23px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #315f8c;
+    cursor: pointer;
+    text-align: right;
+}
+
+.menu-button:first-child {
+    border-top: 1px solid #edf2f7;
+}
+
+.menu-button:hover {
+    background: #f6faff;
+}
+
+.menu-button:active {
+    background: #eef6fd;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3979b8;
+    font-size: 22px;
+}
+
+.arrow {
+    margin-right: auto;
+    color: #91a6ba;
+    font-size: 22px;
+}
+
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background: white;
+    border-top: 1px solid #e9eff5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.nav-button {
+    border: 0;
+    background: none;
+    font-family: inherit;
+    color: #a0afbd;
+    font-size: 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.nav-button span {
+    font-size: 20px;
+}
+
+.nav-button.active {
+    color: #2e75bb;
+    font-weight: bold;
+}
+
+.nav-button.active span {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #3b82c4;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.panel {
+    position: absolute;
+    inset: 0;
+    background: white;
+    z-index: 10;
+    display: none;
+}
+
+.panel.show {
+    display: block;
+}
+
+.panel-header {
+    height: 60px;
+    border-bottom: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+}
+
+.back-button {
+    border: 0;
+    background: none;
+    color: #3979b8;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: auto;
+    color: #244f7d;
+}
+
+.panel-content {
+    padding: 20px 22px;
+    color: #4b6782;
+    font-size: 14px;
+}
+
+.card {
+    background: #f7faff;
+    border: 1px solid #e2edf7;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #dce7f1;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #7d92a7;
+}
+
+.value {
+    color: #315f8c;
+    font-weight: bold;
+}
+
+.primary-button {
+    width: 100%;
+    margin-top: 15px;
+    border: 0;
+    border-radius: 8px;
+    background: #3979b8;
+    color: white;
+    padding: 11px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.toast {
+    position: absolute;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #244f7d;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 10px;
+    font-size: 12px;
+    opacity: 0;
+    transition: 0.2s;
+    z-index: 20;
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- الوقت -->
+
+<div class="status">
+
+    <span>9:41</span>
+
+    <span>▴ ◉ ▰</span>
+
+</div>
+
+
+
+<!-- الملف الشخصي -->
+
+<main>
+
+<div class="header">
+
+    <h1>
+        الملف الشخصي
+    </h1>
+
+
+    <section class="profile">
+
+        <div class="avatar">
+            ♙
+        </div>
+
+        <div class="name">
+            مرحبا
+        </div>
+
+        <div class="student-number">
+            الرقم الجامعي&nbsp;&nbsp;123456789
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<div class="menu">
+
+
+<!-- حجوزاتي -->
+
+<button
+class="menu-button"
+onclick="openPanel('bookings')">
+
+    <span class="icon">
+        ▣
+    </span>
+
+    <span>
+        حجوزاتي
+    </span>
+
+    <span class="arrow">
+        ‹
+    </span>
+
+</button>
+
+
+
+<!-- سجل الحجوزات -->
+
+<button
+class="menu-button"
+onclick="openPanel('history')">
+
+    <span class="icon">
+        ▤
+    </span>
+
+    <span>
+        سجل الحجوزات
+    </span>
+
+    <span class="arrow">
+        ‹
+    </span>
+
+</button>
+
+
+
+<!-- تقييم التطبيق -->
+
+<button
+class="menu-button"
+onclick="openPanel('rating')">
+
+    <span class="icon">
+        ☆
+    </span>
+
+    <span>
+        تقييم التطبيق
+    </span>
+
+    <span class="arrow">
+        ‹
+    </span>
+
+</button>
+
+
+
+<!-- الإعدادات -->
+
+<button
+class="menu-button"
+onclick="openPanel('settings')">
+
+    <span class="icon">
+        ⚙
+    </span>
+
+    <span>
+        الإعدادات
+    </span>
+
+    <span class="arrow">
+        ‹
+    </span>
+
+</button>
+
+
+
+<!-- تسجيل الخروج -->
+
+<button
+class="menu-button"
+onclick="showToast('تم تسجيل الخروج')">
+
+    <span class="icon">
+        ⓘ
+    </span>
+
+    <span>
+        تسجيل الخروج
+    </span>
+
+    <span class="arrow">
+        ‹
+    </span>
+
+</button>
+
+
+</div>
+
+</main>
+
+
+
+<!-- الشريط السفلي -->
+
+<nav class="bottom-nav">
+
+
+<button
+class="nav-button"
+onclick="showToast('الرئيسية')">
+
+    <span>⌂</span>
+
+    الرئيسية
+
+</button>
+
+
+
+<button
+class="nav-button"
+onclick="showToast('الحجوزات')">
+
+    <span>▣</span>
+
+    الحجوزات
+
+</button>
+
+
+
+<button
+class="nav-button"
+onclick="showToast('اللوكرات')">
+
+    <span>▤</span>
+
+    اللوكرات
+
+</button>
+
+
+
+<button
+class="nav-button active"
+onclick="showToast('الملف الشخصي')">
+
+    <span>●</span>
+
+    الملف الشخصي
+
+</button>
+
+
+</nav>
+
+
+
+<!-- صفحة حجوزاتي -->
+
+<section
+id="bookings"
+class="panel">
+
+
+<div class="panel-header">
+
+<button
+class="back-button"
+onclick="closePanel()">
+
+    ›
+
+</button>
+
+<div class="panel-title">
+    حجوزاتي
+</div>
+
+</div>
+
+
+<div class="panel-content">
+
+
+<div class="card">
+
+
+<div class="row">
+
+<span class="label">
+    رقم اللوكر
+</span>
+
+<span class="value">
+    L-025
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    الموقع
+</span>
+
+<span class="value">
+    مبنى كلية الحاسب
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    تاريخ الحجز
+</span>
+
+<span class="value">
+    25 سبتمبر 2026
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    وقت الحجز
+</span>
+
+<span class="value">
+    8:00 ص - 4:00 م
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    حالة الحجز
+</span>
+
+<span class="value">
+    نشط
+</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- سجل الحجوزات -->
+
+<section
+id="history"
+class="panel">
+
+
+<div class="panel-header">
+
+<button
+class="back-button"
+onclick="closePanel()">
+
+    ›
+
+</button>
+
+<div class="panel-title">
+    سجل الحجوزات
+</div>
+
+</div>
+
+
+<div class="panel-content">
+
+
+<div class="card">
+
+<div class="row">
+
+<span class="label">
+    اللوكر L-018
+</span>
+
+<span class="value">
+    مكتمل
+</span>
+
+</div>
+
+<div class="row">
+
+<span class="label">
+    التاريخ
+</span>
+
+<span class="value">
+    15 سبتمبر 2026
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="row">
+
+<span class="label">
+    اللوكر L-011
+</span>
+
+<span class="value">
+    مكتمل
+</span>
+
+</div>
+
+<div class="row">
+
+<span class="label">
+    التاريخ
+</span>
+
+<span class="value">
+    28 أغسطس 2026
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="row">
+
+<span class="label">
+    اللوكر L-006
+</span>
+
+<span class="value">
+    منتهي
+</span>
+
+</div>
+
+<div class="row">
+
+<span class="label">
+    التاريخ
+</span>
+
+<span class="value">
+    10 أغسطس 2026
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- تقييم التطبيق -->
+
+<section
+id="rating"
+class="panel">
+
+
+<div class="panel-header">
+
+<button
+class="back-button"
+onclick="closePanel()">
+
+    ›
+
+</button>
+
+<div class="panel-title">
+    تقييم التطبيق
+</div>
+
+</div>
+
+
+<div class="panel-content">
+
+
+<div
+class="card"
+style="text-align:center;">
+
+
+<p>
+    كيف كانت تجربتك مع LOCKA؟
+</p>
+
+
+<div
+style="
+font-size:32px;
+color:#3979b8;
+letter-spacing:5px;
+">
+
+☆ ☆ ☆ ☆ ☆
+
+</div>
+
+
+<button
+class="primary-button"
+onclick="showToast('تم إرسال التقييم')">
+
+إرسال التقييم
+
+</button>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- الإعدادات -->
+
+<section
+id="settings"
+class="panel">
+
+
+<div class="panel-header">
+
+<button
+class="back-button"
+onclick="closePanel()">
+
+    ›
+
+</button>
+
+<div class="panel-title">
+    الإعدادات
+</div>
+
+</div>
+
+
+<div class="panel-content">
+
+
+<div class="card">
+
+
+<div class="row">
+
+<span class="label">
+    الإشعارات
+</span>
+
+<span class="value">
+    مفعلة
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    اللغة
+</span>
+
+<span class="value">
+    العربية
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    الحساب
+</span>
+
+<span class="value">
+    مرحبا
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+    الرقم الجامعي
+</span>
+
+<span class="value">
+    123456789
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- رسالة التنبيه -->
+
+<div
+id="toast"
+class="toast">
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+function openPanel(id) {
+
+    document
+    .getElementById(id)
+    .classList
+    .add("show");
+
+}
+
+
+function closePanel() {
+
+    document
+    .querySelectorAll(".panel")
+    .forEach(function(panel) {
+
+        panel.classList.remove("show");
+
+    });
+
+}
+
+
+let timer;
+
+
+function showToast(message) {
+
+    const toast =
+    document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(timer);
+
+    timer = setTimeout(function() {
+
+        toast.classList.remove("show");
+
+    }, 1600);
+
+}
+
+</script>
+
+</body>
+</html>
